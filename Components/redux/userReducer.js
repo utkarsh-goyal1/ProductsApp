@@ -1,4 +1,3 @@
-// userReducer.js
 import { SET_USER_DATA } from "./constants";
 
 const initialState = [];

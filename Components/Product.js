@@ -1,48 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Button
-} from 'react-native';
-import { add_to_cart, remove_from_cart } from './redux/action';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View, Text, Image, Button} from 'react-native';
+import {add_to_cart, remove_from_cart} from './redux/action';
+import {useDispatch, useSelector} from 'react-redux';
 
-function Product({ item = {} }) {
+function Product({item}) {
   const dispatch = useDispatch();
   const [isAdded, setIsAdded] = useState(false);
-  const cartItems = useSelector((state) => state.cart);
+  const cartItems = useSelector(state => state.cart);
 
   const handleAddToCart = () => {
     dispatch(add_to_cart(item));
   };
 
   const handleRemoveFromCart = () => {
-    dispatch(remove_from_cart(item.name));
+    dispatch(remove_from_cart(item.title));
   };
 
   useEffect(() => {
-    const itemInCart = cartItems.some((cartItem) => cartItem.name === item.name);
+    const itemInCart = cartItems.some(cartItem => cartItem.title === item.title);
     setIsAdded(itemInCart);
-  }, [cartItems, item.name]);
-
-  
-  if (!item || !item.name) {
+  }, [cartItems, item.title]);
+  if (!item || !item.title) {
     return <Text>Item not found</Text>;
   }
-
   return (
     <View style={styles.productContainer}>
-      <Image source={{ uri: item.image }} style={styles.image} resizeMode="contain" />
-      <Text style={styles.title}>{item.name}</Text>
-      <Text style={styles.price}>Price: {item.price}</Text>
-      <Text style={styles.color}>Color: {item.color}</Text>
-      {
-        isAdded
-          ? <Button title="Remove from cart" onPress={handleRemoveFromCart} />
-          : <Button title="Add to cart" onPress={handleAddToCart} />
-      }
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.price}>Category: {item.category}</Text>
+      <Text style={styles.color}>Price: {item.price}</Text>
+      <Text style={styles.color}>Rating: {item.rating}</Text>
+      {isAdded ? (
+        <Button title="Remove from cart" onPress={handleRemoveFromCart} />
+      ) : (
+        <Button title="Add to cart" onPress={handleAddToCart} />
+      )}
     </View>
   );
 }
@@ -53,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderColor: '#ccc',
-    alignItems: "center",
+    alignItems: 'center',
   },
   image: {
     width: 100,

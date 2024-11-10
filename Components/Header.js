@@ -12,7 +12,7 @@ function Header() {
 
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>Mobile Dekho</Text>
+      <Text style={styles.headerText}>Products App</Text>
       <Text style={styles.headerText}>{cartItems}</Text>
     </View>
   );
